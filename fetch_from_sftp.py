@@ -21,7 +21,7 @@ with DAG('fetch_from_sftp', default_args=default_args, schedule_interval='@daily
     t2 = SFTPOperator(
         task_id='download_file',
         ssh_conn_id='sftp_default',
-        local_filepath='C:\Users\OussemaAcheche\test\',
+        local_filepath='C:/Users/OussemaAcheche/test/',
         remote_filepath='test_file.txt',
         operation='get',
     )
