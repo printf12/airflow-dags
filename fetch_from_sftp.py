@@ -10,7 +10,7 @@ default_args = {
 
 with DAG('fetch_from_sftp', default_args=default_args, schedule_interval='@daily') as dag:
 
-    t1 = SFTPSensor(
+    check_file_update = SFTPSensor(
         task_id='check_file_update',
         path='/upload/test_file.txt',
         poke_interval=60,
@@ -18,12 +18,12 @@ with DAG('fetch_from_sftp', default_args=default_args, schedule_interval='@daily
         sftp_conn_id='sftp_default',
     )
 
-    t2 = SFTPOperator(
+    download_file = SFTPOperator(
         task_id='download_file',
         ssh_conn_id='sftp_default',
-        local_filepath='C:/Users/OussemaAcheche/test/',
-        remote_filepath='test_file.txt',
+        local_filepath='/tmp/downloaded_test_file.txt',
+        remote_filepath='/upload/test_file.txt',
         operation='get',
     )
 
-    t1 >> t2
+    check_file_update >> download_file
