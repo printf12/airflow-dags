@@ -20,7 +20,7 @@ with DAG('sftp_file_monitor', default_args=default_args, schedule_interval='@dai
     # Task to monitor file changes on SFTP
     check_file_update = SFTPSensor(
         task_id='check_file_update',
-        path='/home/foo/upload/test_file.txt',  # Path on the SFTP server
+        path='/upload/test_file.txt',  # Path on the SFTP server
         poke_interval=60,  # Check every 60 seconds
         timeout=600,  # Timeout after 600 seconds
         sftp_conn_id='sftp_default',
